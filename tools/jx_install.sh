@@ -47,88 +47,11 @@ find_arch() {
 
 find_os() {
     arch=$(find_arch "$1")
-    if [[ "$1" =~ 'Darwin' ]]
-    then
-      echo "jx_osx$arch"
-      return
-    fi
 
-    if [[ "$1" =~ 'Ubuntu' ]]
-    then
-      OT=$(apt-get -y install unzip)
-      echo "jx_ub$arch"
-      return
-    fi
-
-    if [[ "$1" =~ 'Debian' ]]
-    then
-      OT=$(apt-get -y install unzip)
-      echo "jx_deb$arch"
-      return
-    fi
-
-    if [[ "$1" =~ 'SUSE' ]]
-    then
-      OT=$(zypper install -n -y unzip)
-      echo "jx_suse$arch"
-      return
-    fi
-
-    if [[ "$1" =~ 'Red Hat' ]]
-    then
       OT=$(yum install -y unzip)
       echo "jx_rh$arch"
       return
-    fi
-    
-    if [[ "$1" =~ 'Gentoo' ]]
-    then
-      echo "jx_gen$arch"
-      return
-    fi
-    
-    if [[ "$1" =~ 'ARCH' ]]
-    then
-      if [[ "$arch" =~ "ARM" ]]
-      then
-        echo "jx_ark$arch"
-        return
-      else
-        echo "This ARCH OS architecture is not supported yet"
-        exit
-      fi
-    fi
-
-    if [[ "$1" =~ 'linaro' ]] || [[ "$1" =~ 'Linaro' ]]
-    then
-      OT=$(apt-get install -y unzip)
-      echo "jx_deb$arch"
-      return
-    fi
-    
-    rasp_check=$(uname -msrn)
-    if [[ "$rasp_check" =~ 'raspberrypi' ]]
-    then
-      OT=$(apt-get install -y unzip)
-      echo "jx_deb$arch"
-      return
-    fi
-
-    if [[ "$rasp_check" =~ 'FreeBSD' ]]
-    then
-      if [[ "$rasp_check" =~ '64' ]]
-      then
-        if [[ "$rasp_check" =~ '9.' ]]
-        then
-          echo "jx_bsd964"
-        else
-          echo "jx_bsd1064"
-        fi
-
-        return
-      fi
-    fi
-
+   
     echo "This OS is not supported - $1"
     exit
 }
